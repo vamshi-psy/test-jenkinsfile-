@@ -1,21 +1,14 @@
 def CONTAINER_NAME="hello-world"
 def IMAGE_NAME="mycontiner"
 
+
+
 pipeline {
   agent any
     environment {
         VERSION = buildVersionString()
     }
   stages {
-
-  stage("git clone") {
-      steps {
-        echo "************* cloning code ************* >"
-        git 'https://github.com/vamshi-psy/test-appcode-.git'
-        echo '<************* cloneing completed *************>'
-
-      }
-    }
   
     stage("Maven Build") {
       steps {
