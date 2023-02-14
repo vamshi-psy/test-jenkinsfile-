@@ -1,0 +1,17 @@
+def CONTAINER_NAME="hello-world"
+def IMAGE_NAME="mycontiner"
+
+pipeline {
+  agent any
+  stages {
+
+    stage("Containers Initialization") {
+      steps {
+        echo '<************* Starting Container *************>'
+        sh "docker rm -f $CONTAINER_NAME"
+        sh "docker run -d --name $CONTAINER_NAME -p 8082:8082 $IMAGE_NAME:latest "
+        echo '<************* Container started  *************>'
+      }
+    }
+  }
+}

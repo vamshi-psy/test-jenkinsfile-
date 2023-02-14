@@ -1,0 +1,34 @@
+def CONTAINER_NAME="hello-world"
+def IMAGE_NAME="mycontiner"
+
+
+
+pipeline {
+  agent any
+    environment {
+        VERSION = buildVersionString()
+    }
+  stages {
+  
+    stage("Maven Build") {
+      steps {
+        echo "************* Building application version ${VERSION} ************* >"
+        sh "/usr/bin/mvn clean install"
+        echo '<************* Build completed *************>'
+
+      }
+    }
+    stage("Create Docker Image") {
+      steps {
+        echo "************* Creating Docker Image ${VERSION}************* >"
+        sh "docker build -t $IMAGE_NAME ."
+        echo '<************* Build completed *************>'
+
+      }
+    }
+ 
+  }
+}
+def buildVersionString() {
+    return '1.0_' + env.BUILD_NUMBER
+}
